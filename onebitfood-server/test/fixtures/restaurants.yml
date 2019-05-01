@@ -1,0 +1,35 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  name: MyString
+  description: MyText
+  status: 1
+  delivery_tax: 1.5
+  state: MyString
+  city: MyString
+  street: MyString
+  neighborhood: MyString
+  number: MyString
+  complement: MyString
+  reference: MyString
+  cep: MyString
+  latitude: 1.5
+  longitude: 1.5
+  category: one
+
+two:
+  name: MyString
+  description: MyText
+  status: 1
+  delivery_tax: 1.5
+  state: MyString
+  city: MyString
+  street: MyString
+  neighborhood: MyString
+  number: MyString
+  complement: MyString
+  reference: MyString
+  cep: MyString
+  latitude: 1.5
+  longitude: 1.5
+  category: two
