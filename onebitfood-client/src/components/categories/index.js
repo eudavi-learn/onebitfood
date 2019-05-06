@@ -3,43 +3,28 @@ import Slider from "react-slick";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 import { Box } from "rbx";
-import { Link } from 'react-router-dom';
 
 import "../../styles/categories.scss";
 import slickSettings from "./slick_settings";
+import api from "../../services/api";
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
+import { loadRestaurants } from '../../actions/restaurant';
 
 
 class Categories extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      categories: [
-        {
-          'title': 'japonesa',
-          'image_url': 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'
-        },
-        {
-          'title': 'arabe',
-          'image_url': 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'
-        },
-        {
-          'title': 'vegana',
-          'image_url': 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'
-        },
-        {
-          'title': 'italiana',
-          'image_url': 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'
-        },
-        {
-          'title': 'peruana',
-          'image_url': 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'
-        },
-        {
-          'title': 'chinesa',
-          'image_url': 'https://images.pexels.com/photos/20787/pexels-photo.jpg?auto=compress&cs=tinysrgb&h=350'
-        }
-      ]
-    }
+  state = {
+    categories: []
+  }
+
+  filterByCategory = (category) => {
+    this.props.loadRestaurants(category)
+  }
+
+  componentWillMount() {
+    api.loadCategories().then(response => {
+      this.setState(() => ({ categories: response.data.categories }))
+    });
   }
 
   render(){
@@ -48,14 +33,14 @@ class Categories extends Component {
         <h3 className="title is-size-4">Categorias</h3>
         <Box>
           <Slider {...slickSettings}>
-            {this.state.categories.map(category => {
+            {this.state.categories.map((category, i) => {
               return (
-                <Link to={`/restaurants?category=${category.title}`}>
-                  <div className="slider-item">
+                <a href="#" onClick={() => this.filterByCategory(category)}>
+                  <div className="slider-item" key={i}>
                     <img src={category.image_url} alt="new"/>
                     <span>{category.title}</span>
                   </div>
-                </Link>
+                </a>
               )
             })}
           </Slider>
@@ -65,4 +50,6 @@ class Categories extends Component {
   }
 }
 
-export default Categories;
+const mapDispatchToProps = dispatch => bindActionCreators({ loadRestaurants }, dispatch);
+
+export default connect(null, mapDispatchToProps)(Categories);

@@ -1,0 +1,9 @@
+#product{
+    img{
+      @media (min-width:641px) {
+        max-height: 90px;
+        width: 80%;
+        float: right;
+      }
+    }
+  }

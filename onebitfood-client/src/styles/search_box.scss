@@ -1,0 +1,12 @@
+@import "./custom_colors";
+
+div.search-box {
+  div.field {
+    border-bottom: 1px solid $custom-gray;
+
+    input {
+      border: none;
+      box-shadow: none;
+    }
+  }
+}
