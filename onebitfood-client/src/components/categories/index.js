@@ -18,7 +18,8 @@ class Categories extends Component {
   }
 
   filterByCategory = (category) => {
-    this.props.loadRestaurants(category)
+    console.log(category);
+    this.props.loadRestaurants(this.props.address, category)
   }
 
   componentWillMount() {
@@ -35,7 +36,7 @@ class Categories extends Component {
           <Slider {...slickSettings}>
             {this.state.categories.map((category, i) => {
               return (
-                <a href="#" onClick={() => this.filterByCategory(category)}>
+                <a href="#" onClick={() => { this.filterByCategory(category) } }>
                   <div className="slider-item" key={i}>
                     <img src={category.image_url} alt="new"/>
                     <span>{category.title}</span>
@@ -50,6 +51,10 @@ class Categories extends Component {
   }
 }
 
+const mapStateToProps = store => ({
+  address: store.addressState.address
+});
+
 const mapDispatchToProps = dispatch => bindActionCreators({ loadRestaurants }, dispatch);
 
-export default connect(null, mapDispatchToProps)(Categories);
+export default connect(mapStateToProps, mapDispatchToProps)(Categories);
