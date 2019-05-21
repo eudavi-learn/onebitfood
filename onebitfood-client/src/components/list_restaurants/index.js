@@ -11,6 +11,12 @@ class ListRestaurants extends Component {
     this.props.loadRestaurants();
   }
 
+  componentDidUpdate(prevProps) {
+    if (this.props.address !== prevProps.address) {
+      this.props.loadRestaurants(this.props.address);
+    }
+  }
+
   render() {
     return (
       <div className="restaurants-list">
@@ -29,7 +35,8 @@ class ListRestaurants extends Component {
 }
 
 const mapStateToProps = store => ({
-  restaurants: store.restaurantsState.restaurants
+  restaurants: store.restaurantsState.restaurants,
+  address: store.addressState.address
 });
 
 const mapDispatchToProps = dispatch => bindActionCreators({ loadRestaurants }, dispatch);

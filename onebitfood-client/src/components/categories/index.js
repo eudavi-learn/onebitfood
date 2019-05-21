@@ -11,7 +11,6 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux';
 import { loadRestaurants } from '../../actions/restaurant';
 
-
 class Categories extends Component {
   state = {
     categories: []
